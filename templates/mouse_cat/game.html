@@ -34,10 +34,9 @@
 {% block content %}
 
 	{% if message %}
-		<div id="content_over">
+		<div id="content">
 			<h1>Game Over</h1>
 			<p>{{ message }}</p>
-		<div/>
 	{% endif %}
 
 	{% if not message %}
@@ -69,6 +68,7 @@
 						<br/>
 		            {% endif %}
 				{% endif %}
+				<a id="reload_button" href="{% url 'select_game' game.id %}">Reload</a>
 			</p>
 		    <form id="move_form" method="post" action="{% url 'move' %}">
 		        {% csrf_token %}

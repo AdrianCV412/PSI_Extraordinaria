@@ -52,6 +52,19 @@
       overflow: hidden;
     }
 
+    #content {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 950px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
     #totalheader {
       text-align: right;
       margin-right:5px;
@@ -91,6 +104,14 @@
       display: none;
     }
 
+    #text_replay{
+      display: none;
+    }
+
+    #p_replay{
+      display: none;
+    }
+
     #menu {
       font-family:"Sans";
       width: 200px;
@@ -124,6 +145,19 @@
     }
 
     #content_game {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 750px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #content {
       width: auto;
       display: inline-block;
       text-align: center;
@@ -175,6 +209,14 @@
       display: none;
     }
 
+    #text_replay{
+      display: none;
+    }
+
+    #p_replay{
+      display: none;
+    }
+
     #menu {
       font-family:"Sans";
       width: 200px;
@@ -208,6 +250,19 @@
     }
 
     #content_game {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 475px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #content {
       width: auto;
       display: inline-block;
       text-align: center;
@@ -259,6 +314,14 @@
       display: none;
     }
 
+    #text_replay{
+      display: none;
+    }
+
+    #p_replay{
+      display: none;
+    }
+
     #menu {
       font-family:"Sans";
       width: 200px;
@@ -292,6 +355,19 @@
     }
 
     #content_game {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 475px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #content {
       width: auto;
       display: inline-block;
       text-align: center;
@@ -365,34 +441,6 @@ img{
 }
 
 #return_homepage {
-}
-
-#content {
-  width: auto;
-  display: inline-block;
-  text-align: center;
-  margin: 5px;
-  height: 100%;
-  border-left: 1px solid #dbdbdb;
-  min-height: 250px;
-  min-width: 950px;
-  max-height: 650px;
-  overflow: hidden;
-}
-
-
-#content_over {
-  width: 80%;
-  display: inline-block;
-  text-align: center;
-  margin: 5px;
-  margin-right: 10px
-  height: 100%;
-  border-left: 1px solid #dbdbdb;
-  min-height: 250px;
-  min-width: 950px;
-  max-height: 650px;
-  overflow: scroll;
 }
 
 #footer {
