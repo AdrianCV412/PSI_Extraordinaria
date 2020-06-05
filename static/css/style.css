@@ -1,0 +1,455 @@
+@media (min-width: 1301px) {
+
+   #game_status {
+    float: left;
+    margin-left: 20px;
+    margin-right: -170px;
+   }
+
+   #menu {
+      font-family:"Sans";
+      width: 300px;
+      min-width: 300px;
+      min-height: 150px;
+      float: left;
+      text-align: left;
+      display: inline-block;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+
+    #headerservice{
+      font-size: 30px;
+      color: white;
+      padding: 0px 10px;
+    }
+
+    #content_counter {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      width: 75%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 950px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #content_game {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 950px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #totalheader {
+      text-align: right;
+      margin-right:5px;
+      font-weight: bold;
+      width: auto;
+      height: 40px;
+      padding: 30px 10px;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #header {
+      text-align: right;
+      margin-right:5px;
+      width: auto;
+      height: 20px;
+      padding: 30px 10px;
+      color: white;
+    }
+
+}
+
+@media (min-width: 1001px) and (max-width: 1300px) {
+
+    #game_status {
+      float: top;
+    }
+
+    #text_play{
+      display: none;
+    }
+
+    #p_play{
+      display: none;
+    }
+
+    #menu {
+      font-family:"Sans";
+      width: 200px;
+      min-height: 150px;
+      min-width: 200px;
+      float: left;
+      text-align: left;
+      display: inline-block;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+
+    #headerservice{
+      font-size: 20px;
+      color: white;
+      padding: 11px 10px;
+    }
+
+    #content_counter {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 750px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #content_game {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 750px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #totalheader {
+      text-align: right;
+      margin-right:5px;
+      font-weight: bold;
+      width: auto;
+      height: 40px;
+      padding: 30px 10px;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #header {
+      text-align: right;
+      margin-right:5px;
+      width: auto;
+      height: 20px;
+      padding: 30px 10px;
+      color: white;
+    }
+
+}
+
+@media (min-width: 751px) and (max-width: 1000px) {
+
+    #game_status {
+      float: top;
+    }
+
+    #text_play{
+      display: none;
+    }
+
+    #p_play{
+      display: none;
+    }
+
+    #menu {
+      font-family:"Sans";
+      width: 200px;
+      min-height: 150px;
+      min-width: 200px;
+      float: left;
+      text-align: left;
+      display: inline-block;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+
+    #headerservice{
+      font-size: 20px;
+      color: white;
+      padding: 11px 10px;
+    }
+
+    #content_counter {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 400px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #content_game {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 475px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #totalheader {
+      text-align: right;
+      margin-right:5px;
+      font-weight: bold;
+      width: auto;
+      height: 40px;
+      padding: 30px 10px;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #header {
+      text-align: right;
+      margin-right:5px;
+      width: auto;
+      height: 20px;
+      padding: 30px 10px;
+      color: white;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    #game_status {
+      float: top;
+    }
+
+    #text_play{
+      display: none;
+    }
+
+    #p_play{
+      display: none;
+    }
+
+    #menu {
+      font-family:"Sans";
+      width: 200px;
+      min-height: 150px;
+      min-width: 200px;
+      float: left;
+      text-align: left;
+      display: inline-block;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+
+    #headerservice{
+      font-size: 20px;
+      color: white;
+      padding: 11px 10px;
+    }
+
+    #content_counter {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 400px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #content_game {
+      width: auto;
+      display: inline-block;
+      text-align: center;
+      margin: 5px;
+      height: 100%;
+      border-left: 1px solid #dbdbdb;
+      min-height: 250px;
+      min-width: 475px;
+      max-height: 650px;
+      overflow: hidden;
+    }
+
+    #header_h {
+        font-size: 25px;
+    }
+
+    #totalheader {
+      text-align: right;
+      margin-right:5px;
+      font-weight: bold;
+      width: 677px;
+      height: 40px;
+      padding: 30px 10px;
+      background-color: #ff6600;
+      border: 2px solid white;
+      border-radius: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #linea_div{
+        width: 677px;
+    }
+
+    #header {
+      text-align: right;
+      margin-right:5px;
+      width: auto;
+      height: 20px;
+      padding: 48px 10px;
+      color: white;
+    }
+
+}
+
+#body{
+    white-space: nowrap;
+}
+
+img{
+    width:100%;
+    max-width:600px;
+}
+
+#doc{
+  background-color: #ffb500;
+}
+
+#linklist{
+  list-style-type: none;
+}
+
+#title {
+  color: white;
+  text-align: center;
+}
+
+#move_form {
+  max-height: 0px;
+  visibility: hidden;
+}
+
+#return_homepage {
+}
+
+#content {
+  width: auto;
+  display: inline-block;
+  text-align: center;
+  margin: 5px;
+  height: 100%;
+  border-left: 1px solid #dbdbdb;
+  min-height: 250px;
+  min-width: 950px;
+  max-height: 650px;
+  overflow: hidden;
+}
+
+
+#content_over {
+  width: 80%;
+  display: inline-block;
+  text-align: center;
+  margin: 5px;
+  margin-right: 10px
+  height: 100%;
+  border-left: 1px solid #dbdbdb;
+  min-height: 250px;
+  min-width: 950px;
+  max-height: 650px;
+  overflow: scroll;
+}
+
+#footer {
+  box-sizing:border-box;
+  width: 99%;
+  min-height: 50px;
+  text-align: center;
+  background-color: #ff6600;
+  position: fixed;
+  bottom: 0px;
+  left 0;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+#footertext {
+    color: white;
+}
+
+#chess_board {
+  float: center;
+  display: inline-block;
+  border-collapse: collapse;
+}
+
+#chess_board_2 {
+  float: center;
+  display: inline-block;
+  border-collapse: collapse;
+}
+
+#chess_board_replay {
+  float: center;
+  display: inline-block;
+  border-collapse: collapse;
+}
+
+a {
+  color: white;
+}
+
+a:hover{
+  color: black;
+}
+
+.errorList, .error{
+  color:red;
+  font-weight:bold;
+}
+
+.mouse{
+  color:#77a633;
+  font-weight:bold
+}
+
+.cat{
+  color:brown;
+  font-weight:bold
+}
+.float_r { float: right;}

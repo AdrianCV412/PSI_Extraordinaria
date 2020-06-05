@@ -1,0 +1,198 @@
+{% extends "mouse_cat/base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_js %}
+<script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script>
+<script>
+	var mov_status = 0;
+	var origin = 0;
+	var target = 0;
+    $(document).ready(function(){
+        $("#chess_board td").click(function() {
+
+ 			if (mov_status == 0){
+            	var column_num = parseInt( $(this).index() );
+            	var row_num = parseInt( $(this).parent().index() );
+				origin = row_num * 8 + column_num;
+				mov_status = 1;
+			}
+			else {
+				var column_num = parseInt( $(this).index() );
+            	var row_num = parseInt( $(this).parent().index() );
+				target = row_num * 8 + column_num;
+				mov_status = 0;
+				$("#id_origin").val(origin);
+				$("#id_target").val(target);
+				$("#move_form").submit();
+			}
+        });
+    });
+</script>
+{% endblock extra_js %}
+
+{% block content %}
+
+	{% if message %}
+		<div id="content_over">
+			<h1>Game Over</h1>
+			<p>{{ message }}</p>
+		<div/>
+	{% endif %}
+
+	{% if not message %}
+		<div id="content_game">
+		    <h1 id="text_play">Play</h1>
+		    <p id="p_play">Game: <b>{{ game.id }}</b></p>
+
+			<p id= game_status>
+				Cats: <b>{{ game.cat_user.username }}</b>
+				<br/>
+				Mouse: <b>{{ game.mouse_user.username }}</b>
+				<br/>
+				{% if game.cat_user.id == request.user.id %}
+					{% if game.cat_turn %}
+						It is your turn. Make a move!
+						<br/>
+					{% else %}
+		                Waiting for the mouse...
+						<br/>
+		            {% endif %}
+				{% endif %}
+
+				{% if game.mouse_user.id == request.user.id %}
+					{% if game.cat_turn %}
+						Waiting for the cat...
+						<br/>
+					{% else %}
+		        It is your turn. Make a move!
+						<br/>
+		            {% endif %}
+				{% endif %}
+			</p>
+		    <form id="move_form" method="post" action="{% url 'move' %}">
+		        {% csrf_token %}
+		        <p>
+		            Cats: <b>{{ game.cat_user.username }}</b>
+		            {% if game.cat_user.id == request.user.id %}
+		                <blockquote class="cat">
+		                    {% if game.cat_turn %}
+		                        {{ move_form }}
+		                        <input type="submit" value="Move" />
+		                    {% else %}
+		                        Waiting for the mouse...
+		                        <a style="margin-left:20px;font-weight:normal" href="{% url 'show_game' %}">Refresh</a>
+		                    {% endif %}
+		                </blockquote>
+		            {% endif %}
+		        </p>
+		        <p>
+		            Mouse: <b>{{ game.mouse_user.username }}</b>
+		            {% if game.mouse_user.id == request.user.id %}
+		                <blockquote class="mouse">
+		                    {% if not game.cat_turn %}
+		                        {{ move_form }}
+		                        <input type="submit" value="Move" />
+		                    {% else %}
+		                        Waiting for the cat...
+		                        <a style="margin-left:20px;font-weight:normal" href="{% url 'show_game' %}">Refresh</a>
+		                    {% endif %}
+		                </blockquote>
+		            {% endif %}
+		        </p>
+		    </form>
+
+		    {% if board %}
+				 {% if game.cat_user.id == request.user.id %}
+		                    {% if game.cat_turn %}
+		                        <table id="chess_board">
+		        					{% for item in board %}
+		            					{% if forloop.counter0|divisibleby:8 %}<tr>{% endif %}
+			    							{% if forloop.counter0 in odd_pos %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center; background-color: white;height:50px'>
+		                							{% if item ==  0 %}   &nbsp;
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% else %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center;height:50px; background-color: black;'>
+		                							{% if item ==  0 %}
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% endif %}
+		            					{% if forloop.counter|divisibleby:8 or forloop.last %}</tr>{% endif %}
+		        					{% endfor %}
+		        				</table>
+		                    {% else %}
+		                        <table id="chess_board_2">
+		        					{% for item in board %}
+		            					{% if forloop.counter0|divisibleby:8 %}<tr>{% endif %}
+			    							{% if forloop.counter0 in odd_pos %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center; background-color: white;height:50px'>
+		                							{% if item ==  0 %}   &nbsp;
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% else %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center;height:50px; background-color: black;'>
+		                							{% if item ==  0 %}
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% endif %}
+		            					{% if forloop.counter|divisibleby:8 or forloop.last %}</tr>{% endif %}
+		        					{% endfor %}
+		        				</table>
+		                    {% endif %}
+		         {% endif %}
+
+				 {% if game.mouse_user.id == request.user.id %}
+		                    {% if not game.cat_turn %}
+		                        <table id="chess_board">
+		        					{% for item in board %}
+		            					{% if forloop.counter0|divisibleby:8 %}<tr>{% endif %}
+			    							{% if forloop.counter0 in odd_pos %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center; background-color: white;height:50px'>
+		                							{% if item ==  0 %}   &nbsp;
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% else %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center;height:50px; background-color: black;'>
+		                							{% if item ==  0 %}
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% endif %}
+		            					{% if forloop.counter|divisibleby:8 or forloop.last %}</tr>{% endif %}
+		        					{% endfor %}
+		        				</table>
+		                    {% else %}
+		                        <table id="chess_board_2">
+		        					{% for item in board %}
+		            					{% if forloop.counter0|divisibleby:8 %}<tr>{% endif %}
+			    							{% if forloop.counter0 in odd_pos %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center; background-color: white;height:50px'>
+		                							{% if item ==  0 %}   &nbsp;
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% else %}
+		            							<td id="cell_{{ forloop.counter0}}" style='width:50px;border:1px solid #000000;text-align:center;height:50px; background-color: black;'>
+		                							{% if item ==  0 %}
+		                							{% elif item == 1 %}  <img src="{% static 'images/cat.jpg' %}" />
+		                							{% else %}  <img src="{% static 'images/mouse.jpg' %}" /> {% endif %}
+		            							</td>
+			    							{% endif %}
+		            					{% if forloop.counter|divisibleby:8 or forloop.last %}</tr>{% endif %}
+		        					{% endfor %}
+		        				</table>
+		                    {% endif %}
+		         {% endif %}
+		    {% endif %}
+
+		    <p id= return_homepage><a href="{% url 'landing' %}">Return to homepage</a></p>
+		</div>
+	{% endif %}
+{% endblock content %}

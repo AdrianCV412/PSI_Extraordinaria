@@ -1,0 +1,28 @@
+{% extends "mouse_cat/base.html" %}
+
+{% block content %}
+<div id="content">
+    <h1>Select game</h1>
+    <p>
+        {% if games %}
+            Available games:
+            <ul id="linklist">
+            {% for game in games %}
+                <li>
+                  Game {{ game.id }}|&nbsp;&nbsp;&nbsp;Cat: {{ game.cat_user }}&nbsp;&nbsp;&nbsp;Mouse: {{ game.mouse_user }} &nbsp;&nbsp;&nbsp;
+                  <a href="{% url 'select_game' game.id %}">Play</a>
+                  &nbsp;&nbsp;&nbsp;
+                  <a href="{% url 'join_game' game.id %}">Join</a>
+                  &nbsp;&nbsp;&nbsp;
+                  <a href="{% url 'replay_game' game.id %}">Replay</a>
+                </li>
+
+            {% endfor %}
+            </ul>
+        {%  else %}
+            No available games.
+        {% endif %}
+    </p>
+    <p><a href="{% url 'landing' %}">Return to homepage</a></p>
+</div>
+{% endblock content %}

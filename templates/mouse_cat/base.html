@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<html id= doc>
+<head>
+    {% block extra_css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    {% endblock extra_css %}
+
+    {% block extra_js %}
+
+    {% endblock extra_js %}
+
+    {% block extra_head %}
+
+    {% endblock extra_head %}
+    <title>{% block title %}PSI 2019-2020: Example of application{% endblock %}</title>
+</head>
+
+<body id="body">
+    <div id="totalheader">
+        <div id="title">
+            {% block atitle %}<h1 id="header_h">Mouse vs. Cats application</h1>{% endblock atitle %}
+        </div>
+
+        <div id="header">
+            {% if request.user.is_authenticated %}
+                Welcome <span class="username">{{ request.user.username }}</span>!
+            {% endif %}
+        </div>
+    </div>
+
+    <hr id="linea_div" />
+	<div>
+	<div id="menu">
+    	<h1 id="headerservice">Service catalog</h1>
+
+    	<ul>
+		    {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'create_game' %}">Create game</a></li>
+                <li><a href="{% url 'select_game' %}">Game list</a></li>
+                <li><a href="{% url 'counter' %}">Counter</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Signup</a></li>
+                <li><a href="{% url 'counter' %}">Counter</a></li>
+            {% endif %}
+    	</ul>
+	</div id="linkcontent">
+	    {% block content %}
+	    {% endblock content %}
+	</div>
+    <hr/>
+  <div id="footer">
+      <p id="footertext">All rights reserved</p>
+    {% block footer %}
+    {% endblock footer %}
+  </div>
+</body>
+</html>
