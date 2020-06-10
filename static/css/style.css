@@ -419,7 +419,8 @@
 
 img{
     width:100%;
-    max-width:600px;
+    max-height: 42px;
+    max-width: 600px;
 }
 
 #doc{

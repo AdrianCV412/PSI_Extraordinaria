@@ -67,20 +67,22 @@ def signup_service(request):
 
         if len(password) < 6 and re.search(special_chars, password) is None:
             models.counter_manager.inc(models.counter_manager)
-            return HttpResponse("<h1>Signup user</h1> The password is too short. It must contain at least 6 characters. This password is too common.")
+
+            return HttpResponseNotFound(errorHTTP(request, exception="Password is too short and must contain a special symbol."))
 
         if len(password) < 6:
             models.counter_manager.inc(models.counter_manager)
-            return HttpResponse("<h1>Signup user</h1> The password is too short. It must contain at least 6 characters.")
+            return HttpResponseNotFound(errorHTTP(request, exception="The password is too short (Min. 6 characters)."))
 
         if User.objects.filter(username=username).exists() or username == "Bot":
             models.counter_manager.inc(models.counter_manager)
-            return HttpResponse("<h1>Signup user</h1> A user with that username already exists")
+            return HttpResponseNotFound(errorHTTP(request, exception="A user with that username already exists."))
+
 
         if signup_form.is_valid():
             if password != password2:
                 models.counter_manager.inc(models.counter_manager)
-                return HttpResponse("<h1>Signup user</h1> Password and Repeat password are not the same")
+                return HttpResponseNotFound(errorHTTP(request, exception="Password and Repeat password are not the same."))
             user = signup_form.save()
             user.set_password(user.password)
             request.session['user_id'] = user.id
@@ -172,8 +174,10 @@ def create_ai_game_service(request):
 
     game.save()
     context_dict = {}
+
     context_dict['game'] = game
-    return render(request, 'mouse_cat/new_game.html', context_dict)
+
+    return select_game_service(request, game_id = game.id)
 
 @login_required
 def show_game_service(request):
@@ -241,12 +245,10 @@ def move_service(request):
             g = m_d.game
 
             if g.mouse_user.username == "Bot" and g.status != GameStatus.FINISHED:
-                # m_bot = models.Move.objects.create(origin = o, target = t, player = request.user, game = g)
+
                 choice_up = random.randint(0, 1)
                 choice_down = random.randint(0, 1)
                 mouse_p = g.mouse
-
-                # m_bot = models.Move.objects.create(origin = mouse_p, target = mouse_p - 9, player = g.mouse_user, game = g)
 
                 if choice_up == 0:
                     try:
@@ -338,6 +340,7 @@ def move_service(request):
 
             context_dict['board'] = board
             context_dict['odd_pos'] = [1,3,5,7,8,10,12,14,17,19,21,23,24,26,28,30,33,35,37,39,40,42,44,46,49,51,53,55,56,58,60,62]
+            context_dict['move_form'] = forms.MoveForm()
             return render(request, 'mouse_cat/game.html', context_dict)
         return HttpResponseNotFound(errorHTTP(request, exception="Error on move form."))
 
