@@ -1,5 +1,6 @@
 import re
 import json
+import random
 from django.http import HttpResponseForbidden
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
@@ -10,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+
 from django.core.exceptions import ValidationError
 
 
@@ -71,7 +73,7 @@ def signup_service(request):
             models.counter_manager.inc(models.counter_manager)
             return HttpResponse("<h1>Signup user</h1> The password is too short. It must contain at least 6 characters.")
 
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists() or username == "Bot":
             models.counter_manager.inc(models.counter_manager)
             return HttpResponse("<h1>Signup user</h1> A user with that username already exists")
 
@@ -158,6 +160,22 @@ def create_game_service(request):
     return render(request, 'mouse_cat/new_game.html', context_dict)
 
 @login_required
+def create_ai_game_service(request):
+    game = Game()
+    game.cat_user = request.user
+
+    if User.objects.filter(username="Bot").exists():
+        game.mouse_user = User.objects.filter(username="Bot").first()
+
+    else:
+        game.mouse_user = User.objects.create_user('Bot', '', '0i80t81d16s810')
+
+    game.save()
+    context_dict = {}
+    context_dict['game'] = game
+    return render(request, 'mouse_cat/new_game.html', context_dict)
+
+@login_required
 def show_game_service(request):
     game = None
     context_dict = {}
@@ -222,6 +240,78 @@ def move_service(request):
 
             g = m_d.game
 
+            if g.mouse_user.username == "Bot" and g.status != GameStatus.FINISHED:
+                # m_bot = models.Move.objects.create(origin = o, target = t, player = request.user, game = g)
+                choice_up = random.randint(0, 1)
+                choice_down = random.randint(0, 1)
+                mouse_p = g.mouse
+
+                # m_bot = models.Move.objects.create(origin = mouse_p, target = mouse_p - 9, player = g.mouse_user, game = g)
+
+                if choice_up == 0:
+                    try:
+                        m_bot = models.Move.objects.create(origin = mouse_p, target = mouse_p - 9, player = g.mouse_user, game = g)
+                    except:
+                        try:
+                            m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p - 7, player=g.mouse_user, game=g)
+                        except:
+                            if choice_down == 0:
+                                try:
+                                    m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 7,
+                                                                       player=g.mouse_user, game=g)
+                                except:
+                                    try:
+                                        m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 9,
+                                                                           player=g.mouse_user, game=g)
+                                    except:
+                                        return HttpResponseNotFound(errorHTTP(request, exception="There has been an error on AI player movement"))
+
+                            if choice_down == 1:
+                                try:
+                                    m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 9,
+                                                                       player=g.mouse_user, game=g)
+                                except:
+                                    try:
+                                        m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 7,
+                                                                           player=g.mouse_user, game=g)
+                                    except:
+                                        return HttpResponseNotFound(errorHTTP(request, exception="There has been an error on AI player movement"))
+
+                if choice_up == 1:
+                    try:
+                        m_bot = models.Move.objects.create(origin = mouse_p, target = mouse_p - 7, player = g.mouse_user, game = g)
+                    except:
+                        try:
+                            m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p - 9, player=g.mouse_user, game=g)
+                        except:
+                            if choice_down == 0:
+                                try:
+                                    m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 7,
+                                                                       player=g.mouse_user, game=g)
+                                except:
+                                    try:
+                                        m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 9,
+                                                                           player=g.mouse_user, game=g)
+                                    except:
+                                        return HttpResponseNotFound(errorHTTP(request,
+                                                                              exception="There has been an error on AI player movement"))
+
+                            if choice_down == 1:
+                                try:
+                                    m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 9,
+                                                                       player=g.mouse_user, game=g)
+                                except:
+                                    try:
+                                        m_bot = models.Move.objects.create(origin=mouse_p, target=mouse_p + 7,
+                                                                           player=g.mouse_user, game=g)
+                                    except:
+                                        return HttpResponseNotFound(errorHTTP(request,
+                                                                              exception="There has been an error on AI player movement"))
+                g = m_bot.game
+
+
+
+
             context_dict = {}
 
             context_dict['game'] = g
@@ -249,7 +339,7 @@ def move_service(request):
             context_dict['board'] = board
             context_dict['odd_pos'] = [1,3,5,7,8,10,12,14,17,19,21,23,24,26,28,30,33,35,37,39,40,42,44,46,49,51,53,55,56,58,60,62]
             return render(request, 'mouse_cat/game.html', context_dict)
-
+        return HttpResponseNotFound(errorHTTP(request, exception="Error on move form."))
 
 
 @login_required

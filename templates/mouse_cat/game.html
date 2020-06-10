@@ -8,7 +8,8 @@
 	var mov_status = 0;
 	var origin = 0;
 	var target = 0;
-    $(document).ready(function(){
+
+	function gen_move_form(){
         $("#chess_board td").click(function() {
 
  			if (mov_status == 0){
@@ -22,12 +23,23 @@
             	var row_num = parseInt( $(this).parent().index() );
 				target = row_num * 8 + column_num;
 				mov_status = 0;
+
 				$("#id_origin").val(origin);
 				$("#id_target").val(target);
+
+				console.log('origin:', origin);
+				console.log('target:', target);
+
+				console.log('origin_f:', $("#id_origin").val());
+				console.log('target_f:', $("#id_target").val());
+
+
 				$("#move_form").submit();
 			}
         });
-    });
+    }
+
+    $(document).ready(gen_move_form);
 </script>
 {% endblock extra_js %}
 
