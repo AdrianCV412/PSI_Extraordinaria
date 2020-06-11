@@ -95,9 +95,9 @@ class Game(models.Model):
             c = ' '
             m = 'X'
         if(self.mouse_user is None):
-            return '('+ str(self.id) +", "+s+")\tCat ["+c+"] cat_user_test("+str(self.cat1)+", "+str(self.cat2)+", "+str(self.cat3)+", "+str(self.cat4)+")"
+            return '('+ str(self.id) +", "+s+")\tCat ["+c+"] "+self.cat_user.username+"("+str(self.cat1)+", "+str(self.cat2)+", "+str(self.cat3)+", "+str(self.cat4)+")"
         else:
-            return '('+ str(self.id) +", "+s+")\tCat ["+c+"] cat_user_test("+str(self.cat1)+", "+str(self.cat2)+", "+str(self.cat3)+", "+str(self.cat4)+") --- Mouse ["+m+"] mouse_user_test("+str(self.mouse)+")"
+            return '('+ str(self.id) +", "+s+")\tCat ["+c+"] "+self.cat_user.username+"("+str(self.cat1)+", "+str(self.cat2)+", "+str(self.cat3)+", "+str(self.cat4)+") --- Mouse ["+m+"] "+self.mouse_user.username+"("+str(self.mouse)+")"
 
 
 class Move(models.Model):

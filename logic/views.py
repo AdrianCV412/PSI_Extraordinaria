@@ -44,7 +44,7 @@ def login_service(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(username = username, password = password)
-        if user:
+        if user and username != 'Bot':
             request.session['user_id'] = user.id
             login(request, user)
             return redirect(reverse(index))
@@ -310,8 +310,6 @@ def move_service(request):
                                         return HttpResponseNotFound(errorHTTP(request,
                                                                               exception="There has been an error on AI player movement"))
                 g = m_bot.game
-
-
 
 
             context_dict = {}
